@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+
+  db:
+    image: postgres:16.3
+    container_name: postgres-db3
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: on_demand
+    networks:
+      - aaa
+    ports:
+      - "5435:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  migration:
+    image: migrate/migrate
+    networks:
+      - aaa
+    volumes:
+      - ./migrations:/migrations
+    command: [ "-path", "/migrations", "-database", "postgres://postgres:pass@postgres-db3:5432/on_demand?sslmode=disable", "up" ]
+    depends_on:
+      - db
+
+  auth-services:
+    build: .
+    container_name: auth-services3
+    networks:
+      - aaa
+    ports:
+      - "2005:2005"
+      - "1970:1970"
+    depends_on:
+      - db
+
+volumes:
+  db-data:
+
+networks:
+  aaa:
+    name: aaa
+    driver: bridge
+    external: true

@@ -1,0 +1,393 @@
+syntax = "proto3";
+
+option go_package = "genproto/booking";
+
+package booking;
+
+service Booking {
+    rpc CreateBooking (CreateBookingRequest) returns (CreateBookingResponse);
+    rpc GetBooking (GetBookingRequest) returns (GetBookingResponse);
+    rpc UpdateBooking (UpdateBookingRequest) returns (UpdateBookingResponse);
+    rpc CancelBooking(CancelBookingRequest) returns (CancelBookingResponse);
+    rpc ListBookings (ListBookingsRequest) returns (ListBookingsResponse);
+    rpc CreateService (CreateServiceRequest) returns (CreateServiceResponse);
+    rpc UpdateService (UpdateServiceRequest) returns (UpdateServiceResponse);
+    rpc DeleteService (DeleteServiceRequest) returns (DeleteServiceResponse);
+    rpc ListServices (ListServicesRequest) returns (ListServicesResponse);
+    rpc CreatePayment (CreatePaymentRequest) returns (CreatePaymentResponse);
+    rpc GetPayment (GetPaymentRequest) returns (GetPaymentResponse);
+    rpc ListPayments (ListPaymentsRequest) returns  (ListPaymentsResponse);
+    rpc CreateReview (CreateReviewRequest) returns (CreateReviewResponse);
+    rpc UpdateReview (UpdateReviewRequest) returns (UpdateReviewResponse);
+    rpc DeleteReview (DeleteReviewRequest) returns (DeleteReviewResponse);
+    rpc ListReviews (ListReviewsRequest) returns (ListReviewsResponse);
+    rpc CreateProviders (CreateProvidersRequest) returns (CreateProvidersResponse);
+    rpc UpdateProviders (UpdateProvidersRequest) returns (UpdateProvidersResponse);
+    rpc DeleteProviders (DeleteProvidersRequest) returns (DeleteProvidersResponse);
+    rpc GetProviders  (GetProvidersRequest) returns (GetProvidersResponse);
+    rpc ListProviders (ListProvidersRequest) returns (ListProvidersResponse);
+    rpc SearchProviders (SearchProvidersRequest) returns (SearchProvidersResponse);
+    rpc SearchServices (SearchServicesRequest) returns (SearchServicesResponse); 
+}
+
+
+message CreateBookingRequest {
+    string user_id = 1;
+    string provider_id = 2;
+    string service_id = 3;
+    string status = 4;
+    Scheduled_time scheduled_time = 5;
+    float tatol_price = 6;  
+    Location location = 7;
+}
+
+message Scheduled_time {
+    string start_time = 1;
+    string end_time = 2;
+}
+
+message Location {
+    string city = 1;
+    string country = 2;
+}
+
+
+message CreateBookingResponse {
+    string _id = 1;
+    string user_id = 2;
+    string provider_id = 4;
+    string service_id = 5;
+    string status = 6;
+    float tatol_price = 7;  
+    Location location = 8;
+}
+
+message GetBookingRequest {
+    string _id = 1;
+}
+
+message GetBookingR {   
+    string user_id = 1;
+    string provider_id = 2;
+    string service_id = 3;
+    string status = 4;
+    Scheduled_time scheduled_time = 5;
+    float tatol_price = 6;  
+    Location location = 7;
+    string _id = 8;
+}
+
+message GetBookingResponse {
+    string user_id = 1;
+    string provider_id = 2;
+    string service_id = 3;
+    string status = 4;
+    Scheduled_time scheduled_time = 5;
+    float tatol_price = 6;  
+    Location location = 7;
+    string _id = 8;
+}   
+
+message UpdateBookingRequest {
+    string user_id = 1;
+    string provider_id = 2;
+    string service_id = 3;
+    string status = 4;
+    float tatol_price = 5; 
+}
+
+message UpdateBookingResponse {
+    string provider_id = 2;
+    string service_id = 3;
+    string status = 4;
+    float tatol_price = 5; 
+    string updated_at = 6;
+}
+
+message CancelBookingRequest {
+    string _id = 1;
+}
+
+message CancelBookingResponse {
+    string message = 1;
+}
+
+message ListBookingsRequest {
+    int32 limit = 1;
+    int32 offset = 2;
+}   
+
+message ListBookingsResponse {
+    repeated GetBookingR listbooks = 1;
+}
+
+message CreateServiceRequest {
+    string user_id = 1;
+    string descrioptions = 2;
+    int32 duration = 3;
+    float price = 4;
+}
+
+message CreateServiceResponse {
+    string user_id = 1;
+    string descrioptions = 2;
+    int32 duration = 3;
+    float price = 4;
+    string _id = 5;
+}
+
+message UpdateServiceRequest {
+    string _id = 1;
+    string user_id = 2;
+    float price = 3;
+    int32 duration = 4;
+    string descrioptions = 5; 
+}
+
+message UpdateServiceResponse {
+    string _id = 1;
+    string user_id = 2;
+    float price = 3;
+    int32 duration = 4;
+    string descrioptions = 5; 
+    string updated_at = 6;
+}
+
+message DeleteServiceRequest {
+    string _id = 1;
+}
+
+message DeleteServiceResponse {
+    string message = 1;
+}
+
+
+message ListServicesRequest {
+    int32 limit = 1;
+    int32 offset = 2;
+}
+
+message ListServiceR {
+    string user_id = 1;
+    string descrioptions = 2;
+    int32 duration = 3;
+    float price = 4;
+    string _id = 5;
+}
+
+message ListServicesResponse {
+    repeated ListServiceR listServices = 1;
+}
+
+message CreatePaymentRequest {
+    string booking_id = 1;
+    float amount = 2;
+    string status = 3;
+    string payment_method = 4;
+    string transaction_id = 5; 
+}
+
+message CreatePaymentResponse {
+    string booking_id = 1;
+    float amount = 2;
+    string status = 3;
+    string payment_method = 4;
+    string transaction_id = 5; 
+    string _id = 6;
+}
+
+message GetPaymentRequest {
+    string _id = 1;
+}
+
+message GetPaymentR {
+    string booking_id = 1;
+    float amount = 2;
+    string status = 3;
+    string payment_method = 4;
+    string transaction_id = 5; 
+    string _id = 6;
+}
+
+message GetPaymentResponse {
+    string booking_id = 1;
+    float amount = 2;
+    string status = 3;
+    string payment_method = 4;
+    string transaction_id = 5; 
+    string _id = 6;
+}
+
+message ListPaymentsRequest {
+    int32 limit = 1;
+    int32 offset = 2;
+}
+
+message ListPaymentsResponse {
+    repeated GetBookingR getpayments = 1;
+}
+
+message CreateReviewRequest {
+    string booking_id = 1;
+    string user_id = 2;
+    string procvider_id = 3;
+    float rating = 4;
+    string comment = 5;
+}
+
+message CreateReviewResponse {
+    string booking_id = 1;
+    string user_id = 2;
+    string procvider_id = 3;
+    float rating = 4;
+    string comment = 5;
+    string created_at = 6;
+}
+
+message UpdateReviewRequest {
+    string _id = 1;
+    string user_id = 2;
+    string procvider_id = 3;
+    float rating = 4;
+    string comment = 5;
+}
+
+message UpdateReviewResponse {
+    string booking_id = 1;
+    string user_id = 2;
+    string procvider_id = 3;
+    float rating = 4;
+    string comment = 5;
+    string updated_at = 6;
+}
+
+message DeleteReviewRequest {
+    string _id = 1;
+}
+
+message DeleteReviewResponse {
+    string message = 1;
+}
+
+message ListReviewsRequest {
+    int32 limit = 1;
+    int32 offset = 2;
+}
+
+message ListReviewR {
+    string booking_id = 1;
+    string user_id = 2;
+    string procvider_id = 3;
+    float rating = 4;
+    string comment = 5;
+    string _id = 6;
+    string created_at = 7;
+}
+
+message ListReviewsResponse {
+    repeated ListReviewR listreviews = 1;
+}
+
+message SearchProvidersRequest {
+
+}
+
+message SearchProvidersResponse {
+
+}
+
+message SearchServicesRequest {
+
+}
+
+message SearchServicesResponse {
+
+}
+
+message CreateProvidersRequest {
+    string user_id = 1;
+    string company_name = 2;
+    repeated ServiceId service_id = 3;
+    Location location = 4;
+    repeated AvailabilityR availabilitys = 5;
+}
+
+message AvailabilityR {
+    string start_time = 1;
+    string end_time = 2;
+}
+
+message ServiceId {
+    string _id = 1;
+}
+
+message CreateProvidersResponse {
+    string user_id = 1;
+    string company_name = 2;
+    repeated ServiceId service_id = 3;
+    Location location = 4;
+    repeated AvailabilityR availabilitys = 5;
+    string _id = 6;
+    string crerated_at = 7;
+}
+
+message UpdateProvidersRequest {
+    string user_id = 1;
+    string company_name = 2;
+    Location location = 4;
+    repeated AvailabilityR availabilitys = 5;
+    string _id = 6;
+}
+
+message UpdateProvidersResponse {
+    string user_id = 1;
+    string company_name = 2;
+    repeated ServiceId service_id = 3;
+    Location location = 4;
+    repeated AvailabilityR availabilitys = 5;
+    string _id = 6;
+    string crerated_at = 7;
+    string updated_at = 8;
+}
+
+message DeleteProvidersRequest {
+    string _id = 1;
+}
+
+message DeleteProvidersResponse {
+    string message = 1;
+}   
+
+message GetProvidersRequest {
+    string _id = 1;
+}
+
+message GetProvidersResponse {
+    string user_id = 1;
+    string company_name = 2;
+    repeated ServiceId service_id = 3;
+    Location location = 4;
+    repeated AvailabilityR availabilitys = 5;
+    string _id = 6;
+    string crerated_at = 7;
+    string updated_at = 8;
+}
+
+message ListProvidersRequest {
+    int32 limit = 1;
+    int32 offset = 2;
+}
+
+message ListProviderR {
+    string user_id = 1;
+    string company_name = 2;
+    repeated ServiceId service_id = 3;
+    Location location = 4;
+    repeated AvailabilityR availabilitys = 5;
+    string _id = 6;
+    string crerated_at = 7;
+}
+
+message ListProvidersResponse {
+    repeated ListProviderR listpriders = 1;
+}
